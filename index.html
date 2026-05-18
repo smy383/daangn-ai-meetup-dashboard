@@ -485,7 +485,7 @@ const meetups = [
   { id:"5회차", title:"AI에이전트 처음부터 구축하기",        date:"2026-05-31", time:"오후 5:00", capacity:6, status:"open",
     attendees:["별별","하루"], fee:30000, place:"마커닷스터디룸" },
   { id:"월요반",title:"[월요일오전반] 매주 한달동안 10시 모임",date:"2026-06-01", time:"오전 10:00", capacity:6, status:"full",
-    attendees:["별별","시소팝","손뻑치며","록시","시엘","노리짱"], fee:0, place:"라피아노 카페 (고양)" },
+    attendees:["별별","시소팝","손뻑치며","록시","시엘","노리짱"], fee:100000, place:"라피아노 카페 (고양)", note:"4주 과정 6/1·8·15·22" },
 ];
 
 // ===== ATTENDANCE MAP =====
@@ -544,7 +544,7 @@ meetups.forEach(m => {
       <div class="meetup-info">
         <div class="meetup-info-row"><span class="icon">📅</span> ${m.date.replace('2026-','26.')} ${m.time}</div>
         <div class="meetup-info-row"><span class="icon">📍</span> ${m.place}</div>
-        <div class="meetup-info-row"><span class="icon">💰</span> ${m.fee===0?'무료':m.fee.toLocaleString()+'원'}</div>
+        <div class="meetup-info-row"><span class="icon">💰</span> ${m.fee===0?'무료':m.fee.toLocaleString()+'원'}${m.note?` <span style="color:var(--text2);font-size:11px">(${m.note})</span>`:''}</div>
       </div>
       <div class="meetup-capacity">
         <div class="cap-label">
