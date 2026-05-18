@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>당근 AI 에이전트 모임 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --bg2: #161616;
+    --bg3: #1e1e1e;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --text2: #a0a0a0;
+    --orange: #ff6f1e;
+    --orange2: #ff8c42;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a0a00 0%, #0e0e0e 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header-icon {
+    width: 48px; height: 48px;
+    background: var(--orange);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .header-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-sub { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .header-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .header-badge span { color: var(--orange); font-weight: 600; }
+  /* Layout */
+  .main { max-width: 1280px; margin: 0 auto; padding: 28px 24px; }
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px; height: 16px;
+    background: var(--orange);
+    border-radius: 2px;
+  }
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .kpi-card:hover { border-color: #444; }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent, var(--orange));
+  }
+  .kpi-label { font-size: 12px; color: var(--text2); letter-spacing: 0.3px; }
+  .kpi-value { font-size: 36px; font-weight: 700; margin: 6px 0 2px; line-height: 1; }
+  .kpi-sub { font-size: 12px; color: var(--text2); }
+  .kpi-icon {
+    position: absolute;
+    top: 16px; right: 18px;
+    font-size: 28px;
+    opacity: 0.15;
+  }
+  /* Meetup Cards */
+  .meetup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .meetup-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .meetup-card:hover { border-color: #444; transform: translateY(-1px); }
+  .meetup-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .meetup-round { font-size: 12px; color: var(--text2); }
+  .status-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.2px;
+  }
+  .status-done { background: #1a2e1a; color: var(--green); border: 1px solid #22c55e33; }
+  .status-full { background: #2e1a1a; color: var(--red); border: 1px solid #ef444433; }
+  .status-open { background: #1a1e2e; color: var(--blue); border: 1px solid #3b82f633; }
+  .meetup-title { font-size: 15px; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+  .meetup-info { font-size: 13px; color: var(--text2); display: flex; flex-direction: column; gap: 4px; }
+  .meetup-info-row { display: flex; gap: 6px; }
+  .meetup-info-row .icon { width: 16px; text-align: center; }
+  .meetup-attendees { margin-top: 12px; }
+  .attendee-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .chip.host { background: #1f1008; border-color: var(--orange); color: var(--orange); }
+  .meetup-capacity { margin-top: 12px; }
+  .cap-bar { background: var(--bg3); border-radius: 4px; height: 5px; overflow: hidden; margin-top: 4px; }
+  .cap-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+  .cap-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); }
+  /* Matrix */
+  .matrix-container {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .matrix-table { border-collapse: collapse; min-width: 100%; font-size: 12px; }
+  .matrix-table th {
+    padding: 8px 12px;
+    text-align: center;
+    color: var(--text2);
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .matrix-table th:first-child { text-align: left; min-width: 110px; }
+  .matrix-table td {
+    padding: 7px 12px;
+    text-align: center;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .matrix-table td:first-child { text-align: left; color: var(--text); white-space: nowrap; }
+  .matrix-table tr:hover td { background: #1a1a1a; }
+  .cell-done { font-size: 16px; }
+  .cell-none { color: var(--border); font-size: 12px; }
+  .cell-plan { opacity: 0.6; font-size: 16px; }
+  /* Charts Grid */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .chart-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .chart-wrap { position: relative; height: 200px; }
+  /* Leaderboard */
+  .leaderboard {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 32px;
+  }
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .rank-1 { background: #2d2100; color: #fbbf24; border: 1.5px solid #fbbf24; }
+  .rank-2 { background: #1e2226; color: #94a3b8; border: 1.5px solid #94a3b8; }
+  .rank-3 { background: #1e1510; color: #cd7c44; border: 1.5px solid #cd7c44; }
+  .rank-n { background: var(--bg3); color: var(--text2); border: 1.5px solid var(--border); }
+  .lb-name { font-size: 14px; font-weight: 600; flex: 1; }
+  .lb-detail { font-size: 12px; color: var(--text2); }
+  .lb-bar-wrap { flex: 2; display: flex; align-items: center; gap: 8px; }
+  .lb-bar { flex: 1; background: var(--bg3); border-radius: 4px; height: 8px; overflow: hidden; }
+  .lb-bar-fill { height: 100%; border-radius: 4px; background: var(--orange); }
+  .lb-count { font-size: 14px; font-weight: 700; color: var(--orange); white-space: nowrap; }
+  /* Member Table */
+  .member-section { margin-bottom: 32px; }
+  .member-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-input {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+  }
+  .filter-input:focus { border-color: var(--orange); }
+  .filter-btn {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text2);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--orange); color: var(--orange); background: #1f0e00; }
+  .member-table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  table.mtable { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .mtable th {
+    background: var(--bg3);
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .mtable th:hover { color: var(--text); }
+  .mtable td {
+    padding: 11px 16px;
+    border-top: 1px solid #1a1a1a;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .mtable tr:hover td { background: #1a1a1a; }
+  .gender-m { color: var(--blue); }
+  .gender-f { color: #f472b6; }
+  .age-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    background: var(--bg3);
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .host-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    background: #1f0e00;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+  }
+  .member-count {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 8px;
+    text-align: right;
+  }
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text2);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  /* Responsive */
+  @media (max-width: 640px) {
+    .header { padding: 20px 16px; }
+    .main { padding: 20px 14px; }
+    .kpi-value { font-size: 28px; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .meetup-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">🥕</div>
+    <div>
+      <div class="header-title">나만의 비서 AI 에이전트 구축</div>
+      <div class="header-sub">당근 모임 관리 대시보드</div>
+    </div>
+  </div>
+  <div class="header-badge">
+    마지막 업데이트 <span id="lastUpdate"></span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- 모임 일정 -->
+  <div class="section-title">모임 일정 현황</div>
+  <div class="meetup-grid" id="meetupGrid"></div>
+
+  <!-- 참여 매트릭스 -->
+  <div class="section-title">참여 이력 매트릭스</div>
+  <div class="matrix-container">
+    <table class="matrix-table" id="matrixTable"></table>
+  </div>
+
+  <!-- 다회차 참여자 -->
+  <div class="section-title">누적 참여 순위</div>
+  <div class="leaderboard" id="leaderboard"></div>
+
+  <!-- 통계 차트 -->
+  <div class="section-title">회원 통계</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">📊 연령대 분포</div>
+      <div class="chart-wrap"><canvas id="ageChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">⚧ 성별 분포</div>
+      <div class="chart-wrap"><canvas id="genderChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">📍 동네 분포 (TOP 8)</div>
+      <div class="chart-wrap"><canvas id="areaChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">📅 가입일별 누적 회원</div>
+      <div class="chart-wrap"><canvas id="joinChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 전체 회원 목록 -->
+  <div class="section-title">전체 회원 목록</div>
+  <div class="member-section">
+    <div class="member-filter">
+      <input class="filter-input" type="text" id="memberSearch" placeholder="🔍  닉네임 또는 동네 검색...">
+      <button class="filter-btn" onclick="filterGender('')" id="btn-all">전체</button>
+      <button class="filter-btn" onclick="filterGender('남')" id="btn-m">남성</button>
+      <button class="filter-btn" onclick="filterGender('여')" id="btn-f">여성</button>
+    </div>
+    <div class="member-table-wrap">
+      <table class="mtable" id="memberTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable('name')">#</th>
+            <th onclick="sortTable('name')">닉네임</th>
+            <th onclick="sortTable('area')">동네</th>
+            <th onclick="sortTable('joined')">가입일</th>
+            <th onclick="sortTable('age')">연령대</th>
+            <th onclick="sortTable('gender')">성별</th>
+            <th onclick="sortTable('attend')">참여 횟수</th>
+          </tr>
+        </thead>
+        <tbody id="memberTbody"></tbody>
+      </table>
+    </div>
+    <div class="member-count" id="memberCount"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  🥕 당근 AI 에이전트 모임 | 모임장 <strong style="color:var(--orange)">별별</strong> | 마커닷스터디룸 신촌
+</div>
+
+<script>
+// ===== DATA =====
+const members = [
+  { name:"별별",          area:"창천동",          joined:"26.05.03", age:"40대 초반", gender:"남", role:"host" },
+  { name:"작은거인",       area:"서림동",          joined:"26.05.17", age:"30대 중반", gender:"남" },
+  { name:"고졸랩지",       area:"조리읍",          joined:"26.05.17", age:"40대 초반", gender:"남" },
+  { name:"메로코",         area:"동교동",          joined:"26.05.17", age:"40대 후반", gender:"남" },
+  { name:"하루",           area:"종로1.2.3.4가동", joined:"26.05.16", age:"40대 중반", gender:"여" },
+  { name:"닝닝",           area:"상수동",          joined:"26.05.16", age:"30대 초반", gender:"여" },
+  { name:"절묘한시간",     area:"서교동",          joined:"26.05.16", age:"30대 중반", gender:"여" },
+  { name:"콩이",           area:"산천동",          joined:"26.05.14", age:"30대 후반", gender:"여" },
+  { name:"깜깜",           area:"상수동",          joined:"26.05.12", age:"20대 중반", gender:"남" },
+  { name:"비비",           area:"동교동",          joined:"26.05.10", age:"30대 후반", gender:"여" },
+  { name:"마카롱이",       area:"이태원제2동",     joined:"26.05.10", age:"30대 초반", gender:"남" },
+  { name:"지니_ieie",     area:"한강로3가",        joined:"26.05.10", age:"50대 초반", gender:"여" },
+  { name:"로고스",         area:"연남동",          joined:"26.05.10", age:"40대 후반", gender:"남" },
+  { name:"깍두기",         area:"북아현동",        joined:"26.05.10", age:"60대 초반", gender:"남" },
+  { name:"애용",           area:"홍제동",          joined:"26.05.09", age:"30대 후반", gender:"여" },
+  { name:"손뻑치며",       area:"남가좌제2동",     joined:"26.05.09", age:"60대 중반", gender:"남" },
+  { name:"록시",           area:"신사동",          joined:"26.05.09", age:"50대 초반", gender:"여" },
+  { name:"곰곰곰탱",       area:"신수동",          joined:"26.05.09", age:"20대 중반", gender:"남" },
+  { name:"정원조아",       area:"성산동",          joined:"26.05.09", age:"50대 후반", gender:"남" },
+  { name:"시소팝",         area:"향동동",          joined:"26.05.08", age:"40대 후반", gender:"남" },
+  { name:"더윤",           area:"연희동",          joined:"26.05.08", age:"50대 초반", gender:"남" },
+  { name:"룰루레몬",       area:"중림동",          joined:"26.05.07", age:"30대 후반", gender:"남" },
+  { name:"캐롯블루",       area:"현저동",          joined:"26.05.07", age:"50대 초반", gender:"여" },
+  { name:"선셋",           area:"서교동",          joined:"26.05.07", age:"50대 중반", gender:"여" },
+  { name:"쿠우",           area:"홍제제1동",       joined:"26.05.06", age:"30대 후반", gender:"남" },
+  { name:"시엘",           area:"연남동",          joined:"26.05.06", age:"50대 초반", gender:"여" },
+  { name:"Bnuwe",          area:"도화동",          joined:"26.05.05", age:"30대 후반", gender:"남" },
+  { name:"가위맘",         area:"창전동",          joined:"26.05.05", age:"50대 중반", gender:"여" },
+  { name:"카라멜",         area:"상수동",          joined:"26.05.04", age:"40대 후반", gender:"남" },
+  { name:"l윤슬l",        area:"연남동",           joined:"26.05.04", age:"30대 후반", gender:"여" },
+  { name:"jenny",          area:"원효로제2동",     joined:"26.05.03", age:"30대 중반", gender:"여" },
+  { name:"호잉",           area:"응암동",          joined:"26.05.03", age:"30대 초반", gender:"여" },
+  { name:"노리짱",         area:"서교동",          joined:"26.05.03", age:"50대 초반", gender:"여" },
+  { name:"바니바니당근당근",area:"서교동",         joined:"26.05.03", age:"40대 초반", gender:"남" },
+  { name:"뒹굴",           area:"아현동",          joined:"26.05.03", age:"30대 중반", gender:"남" },
+];
+
+const meetups = [
+  { id:"1회차", title:"처음부터 구축하기 실습모임",          date:"2026-05-09", time:"오후 5:00", capacity:6, status:"done",
+    attendees:["별별","시엘","가위맘","l윤슬l","노리짱","jenny"], fee:0, place:"마커닷스터디룸" },
+  { id:"2회차", title:"처음부터 구축하기 실습모임",          date:"2026-05-17", time:"오후 5:00", capacity:6, status:"done",
+    attendees:["별별","로고스","깍두기","손뻑치며","애용","시소팝"], fee:0, place:"마커닷스터디룸" },
+  { id:"3회차", title:"처음부터 에이전트 구축하기",          date:"2026-05-23", time:"오후 5:00", capacity:6, status:"open",
+    attendees:["별별","메로코","절묘한시간","록시","룰루레몬"], fee:30000, place:"마커닷스터디룸" },
+  { id:"홈피",  title:"에이전트로 홈페이지개발 환경 구축",   date:"2026-05-27", time:"오후 8:00", capacity:6, status:"open",
+    attendees:["별별","손뻑치며","록시","시엘","시소팝"], fee:30000, place:"마커닷스터디룸 (신촌)" },
+  { id:"5회차", title:"AI에이전트 처음부터 구축하기",        date:"2026-05-31", time:"오후 5:00", capacity:6, status:"open",
+    attendees:["별별","하루"], fee:30000, place:"마커닷스터디룸" },
+  { id:"월요반",title:"[월요일오전반] 매주 한달동안 10시 모임",date:"2026-06-01", time:"오전 10:00", capacity:6, status:"full",
+    attendees:["별별","시소팝","손뻑치며","록시","시엘","노리짱"], fee:0, place:"라피아노 카페 (고양)" },
+];
+
+// ===== ATTENDANCE MAP =====
+const attendanceMap = {};
+members.forEach(m => attendanceMap[m.name] = {});
+meetups.forEach(mt => {
+  mt.attendees.forEach(a => {
+    if(attendanceMap[a]) attendanceMap[a][mt.id] = mt.status === 'done' ? 'done' : 'plan';
+  });
+});
+// Participation count
+members.forEach(m => {
+  const rec = attendanceMap[m.name];
+  m.attendDone = Object.values(rec).filter(v=>v==='done').length;
+  m.attendPlan = Object.values(rec).filter(v=>v==='plan').length;
+  m.attendTotal = m.attendDone + m.attendPlan;
+});
+
+// ===== LAST UPDATE =====
+document.getElementById('lastUpdate').textContent = '2026-05-19';
+
+// ===== KPI =====
+const kpiData = [
+  { label:'총 회원', value:members.length, sub:'당근 모임 참여자', icon:'👥', accent:'#ff6f1e' },
+  { label:'진행된 모임', value:meetups.filter(m=>m.status==='done').length, sub:'만석 완료', icon:'✅', accent:'#22c55e' },
+  { label:'예정 / 마감', value:meetups.filter(m=>m.status!=='done').length, sub:'다가오는 일정', icon:'📅', accent:'#3b82f6' },
+  { label:'평균 참여율', value:Math.round(meetups.filter(m=>m.status==='done').reduce((a,m)=>a+m.attendees.length/m.capacity,0)/meetups.filter(m=>m.status==='done').length*100)+'%', sub:'종료 모임 기준', icon:'📈', accent:'#8b5cf6' },
+];
+const kpiGrid = document.getElementById('kpiGrid');
+kpiData.forEach(k => {
+  kpiGrid.innerHTML += `
+    <div class="kpi-card" style="--accent:${k.accent}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+      <div class="kpi-icon">${k.icon}</div>
+    </div>`;
+});
+
+// ===== MEETUP CARDS =====
+const statusMap = { done:{label:'종료',cls:'status-done'}, full:{label:'마감',cls:'status-full'}, open:{label:'모집중',cls:'status-open'} };
+const capColorMap = { done:'var(--green)', full:'var(--red)', open:'var(--blue)' };
+const meetupGrid = document.getElementById('meetupGrid');
+meetups.forEach(m => {
+  const pct = Math.round(m.attendees.length/m.capacity*100);
+  const chips = m.attendees.map(a=>
+    `<span class="chip${a==='별별'?' host':''}">${a==='별별'?'👑 '+a:a}</span>`
+  ).join('');
+  meetupGrid.innerHTML += `
+    <div class="meetup-card">
+      <div class="meetup-header">
+        <span class="meetup-round">${m.id}</span>
+        <span class="status-badge ${statusMap[m.status].cls}">${statusMap[m.status].label}</span>
+      </div>
+      <div class="meetup-title">${m.title}</div>
+      <div class="meetup-info">
+        <div class="meetup-info-row"><span class="icon">📅</span> ${m.date.replace('2026-','26.')} ${m.time}</div>
+        <div class="meetup-info-row"><span class="icon">📍</span> ${m.place}</div>
+        <div class="meetup-info-row"><span class="icon">💰</span> ${m.fee===0?'무료':m.fee.toLocaleString()+'원'}</div>
+      </div>
+      <div class="meetup-capacity">
+        <div class="cap-label">
+          <span>참여 ${m.attendees.length}/${m.capacity}명</span>
+          <span>${pct}%</span>
+        </div>
+        <div class="cap-bar"><div class="cap-fill" style="width:${pct}%;background:${capColorMap[m.status]}"></div></div>
+      </div>
+      <div class="meetup-attendees">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:4px;">참여자</div>
+        <div class="attendee-chips">${chips}</div>
+      </div>
+    </div>`;
+});
+
+// ===== MATRIX =====
+// Only show members who attended at least once
+const activeMembers = members.filter(m => m.attendTotal > 0 || m.role === 'host');
+const matrixTable = document.getElementById('matrixTable');
+let thead = '<tr><th>닉네임</th>';
+meetups.forEach(m => { thead += `<th>${m.id}<br><small style="font-weight:400;opacity:0.6">${m.date.slice(5)}</small></th>`; });
+thead += '<th>합계</th></tr>';
+let tbody = '';
+activeMembers.sort((a,b)=>b.attendTotal-a.attendTotal).forEach(m => {
+  tbody += `<tr><td>${m.role==='host'?'👑 ':''}<strong>${m.name}</strong></td>`;
+  meetups.forEach(mt => {
+    const val = attendanceMap[m.name][mt.id];
+    if(val==='done') tbody += `<td class="cell-done">✅</td>`;
+    else if(val==='plan') tbody += `<td class="cell-plan">🔄</td>`;
+    else tbody += `<td class="cell-none">·</td>`;
+  });
+  const total = m.attendDone + (m.attendPlan > 0 ? `<span style="color:var(--blue);font-size:11px">+${m.attendPlan}🔄</span>` : '');
+  tbody += `<td><strong style="color:var(--orange)">${total}</strong></td></tr>`;
+});
+matrixTable.innerHTML = thead + tbody;
+
+// ===== LEADERBOARD =====
+const lbData = [...members].filter(m=>m.attendTotal>0).sort((a,b)=>b.attendTotal-a.attendTotal);
+const maxAttend = lbData[0]?.attendTotal || 1;
+const lb = document.getElementById('leaderboard');
+const rankClasses = ['rank-1','rank-2','rank-3'];
+lbData.forEach((m,i) => {
+  const rc = i < 3 ? rankClasses[i] : 'rank-n';
+  const pct = Math.round(m.attendTotal/maxAttend*100);
+  lb.innerHTML += `
+    <div class="lb-row">
+      <div class="lb-rank ${rc}">${i+1}</div>
+      <div>
+        <div class="lb-name">${m.role==='host'?'👑 ':''} ${m.name}</div>
+        <div class="lb-detail">${m.area} · ${m.gender==='남'?'남성':'여성'} · ${m.age}</div>
+      </div>
+      <div class="lb-bar-wrap">
+        <div class="lb-bar"><div class="lb-bar-fill" style="width:${pct}%"></div></div>
+        <div class="lb-count">${m.attendDone}${m.attendPlan>0?`<span style="font-size:11px;color:var(--blue)">+${m.attendPlan}</span>`:''} 회</div>
+      </div>
+    </div>`;
+});
+
+// ===== CHARTS =====
+Chart.defaults.color = '#a0a0a0';
+Chart.defaults.borderColor = '#2a2a2a';
+
+// Age chart
+const ageCounts = {};
+members.forEach(m => { ageCounts[m.age.slice(0,3)] = (ageCounts[m.age.slice(0,3)]||0)+1; });
+const ageOrder = ['20대','30대','40대','50대','60대'];
+const ageLabels = ageOrder.filter(a=>ageCounts[a]);
+new Chart(document.getElementById('ageChart'), {
+  type:'bar',
+  data:{
+    labels: ageLabels,
+    datasets:[{ data: ageLabels.map(a=>ageCounts[a]),
+      backgroundColor:['#3b82f6','#22c55e','#ff6f1e','#8b5cf6','#ef4444'],
+      borderRadius:6, borderSkipped:false }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{ y:{beginAtZero:true,ticks:{stepSize:1}}, x:{grid:{display:false}} } }
+});
+
+// Gender chart
+const maleCount = members.filter(m=>m.gender==='남').length;
+const femaleCount = members.filter(m=>m.gender==='여').length;
+new Chart(document.getElementById('genderChart'), {
+  type:'doughnut',
+  data:{
+    labels:['남성','여성'],
+    datasets:[{ data:[maleCount,femaleCount],
+      backgroundColor:['#3b82f6','#f472b6'],
+      borderColor:'#1e1e1e', borderWidth:3 }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'bottom', labels:{ padding:16, font:{size:12} } },
+      tooltip:{ callbacks:{ label:(c)=>`${c.label}: ${c.parsed}명 (${Math.round(c.parsed/(maleCount+femaleCount)*100)}%)` } } } }
+});
+
+// Area chart
+const areaCounts = {};
+members.forEach(m => { areaCounts[m.area] = (areaCounts[m.area]||0)+1; });
+const sortedAreas = Object.entries(areaCounts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+new Chart(document.getElementById('areaChart'), {
+  type:'bar',
+  data:{
+    labels: sortedAreas.map(a=>a[0]),
+    datasets:[{ data: sortedAreas.map(a=>a[1]),
+      backgroundColor:'#ff6f1e', borderRadius:5, borderSkipped:false }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    plugins:{ legend:{display:false} },
+    scales:{ x:{beginAtZero:true,ticks:{stepSize:1}}, y:{grid:{display:false}} } }
+});
+
+// Join chart
+const joinCounts = {};
+members.forEach(m => { joinCounts[m.joined] = (joinCounts[m.joined]||0)+1; });
+const joinDates = Object.keys(joinCounts).sort();
+let cumulative = 0;
+const cumData = joinDates.map(d => { cumulative += joinCounts[d]; return cumulative; });
+new Chart(document.getElementById('joinChart'), {
+  type:'line',
+  data:{
+    labels: joinDates.map(d=>d.slice(3)),
+    datasets:[{
+      data: cumData,
+      borderColor:'#ff6f1e',
+      backgroundColor:'rgba(255,111,30,0.1)',
+      fill:true, tension:0.4, pointRadius:4,
+      pointBackgroundColor:'#ff6f1e'
+    }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{ y:{beginAtZero:true}, x:{grid:{display:false}} } }
+});
+
+// ===== MEMBER TABLE =====
+let currentFilter = '';
+let currentSort = { key:'joined', dir:-1 };
+
+function renderTable() {
+  const search = document.getElementById('memberSearch').value.toLowerCase();
+  let data = members.filter(m =>
+    (currentFilter === '' || m.gender === currentFilter) &&
+    (m.name.toLowerCase().includes(search) || m.area.toLowerCase().includes(search))
+  );
+  data.sort((a,b) => {
+    let va = a[currentSort.key]||'', vb = b[currentSort.key]||'';
+    if(currentSort.key==='attend') { va=a.attendTotal; vb=b.attendTotal; }
+    if(va<vb) return -currentSort.dir;
+    if(va>vb) return currentSort.dir;
+    return 0;
+  });
+  const tbody = document.getElementById('memberTbody');
+  tbody.innerHTML = data.map((m,i) => `
+    <tr>
+      <td style="color:var(--text2)">${i+1}</td>
+      <td>${m.role==='host'?'<span class="host-badge">👑 모임장</span> ':''}<strong>${m.name}</strong></td>
+      <td style="color:var(--text2)">${m.area}</td>
+      <td style="color:var(--text2)">${m.joined}</td>
+      <td><span class="age-badge">${m.age}</span></td>
+      <td class="gender-${m.gender==='남'?'m':'f'}">${m.gender==='남'?'♂ 남성':'♀ 여성'}</td>
+      <td><strong style="color:${m.attendTotal>0?'var(--orange)':'var(--text2)'}">${m.attendDone}${m.attendPlan>0?`<span style="font-size:11px;color:var(--blue)">+${m.attendPlan}🔄</span>`:''} 회</strong></td>
+    </tr>`).join('');
+  document.getElementById('memberCount').textContent = `${data.length}명 표시 중 / 전체 ${members.length}명`;
+}
+
+function filterGender(g) {
+  currentFilter = g;
+  ['all','m','f'].forEach(id => document.getElementById('btn-'+id).classList.remove('active'));
+  document.getElementById('btn-'+(g===''?'all':g==='남'?'m':'f')).classList.add('active');
+  renderTable();
+}
+function sortTable(key) {
+  if(currentSort.key===key) currentSort.dir *= -1;
+  else { currentSort.key=key; currentSort.dir=1; }
+  renderTable();
+}
+document.getElementById('memberSearch').addEventListener('input', renderTable);
+document.getElementById('btn-all').classList.add('active');
+renderTable();
+</script>
+</body>
+</html>
