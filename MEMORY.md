@@ -1,6 +1,6 @@
 # 당근 AI 에이전트 모임 — 프로젝트 메모리
 
-> 마지막 업데이트: 2026-05-20
+> 마지막 업데이트: 2026-05-22
 
 ## 📁 경로
 - 프로젝트: `/Users/smymac/Documents/AI_agent_당근/`
@@ -12,9 +12,9 @@
 - GitHub Pages: https://smy383.github.io/daangn-ai-meetup-dashboard/
 - GitHub 저장소: https://github.com/smy383/daangn-ai-meetup-dashboard
 
-## 👥 회원 현황 (2026-05-19 기준)
-- 총 37명 (모임장 별별 포함)
-- 최신 가입: HwaSue (동교동, 5/20, 30대 후반 여성)
+## 👥 회원 현황 (2026-05-22 기준)
+- 총 38명 (모임장 별별 포함)
+- 최신 가입: 상순 (마포, 5/22)
 
 ## 📅 모임 현황
 | 회차 | 날짜 | 상태 | 참여 | 참가비 |
