@@ -1,0 +1,399 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e9]:
+        - heading "👨‍🏫 AI 정규반 관리" [level=1] [ref=e10]
+        - paragraph [ref=e11]: 7월 AI 정규반
+      - generic [ref=e12]:
+        - button "🔄 새로고침" [ref=e13] [cursor=pointer]
+        - button "로그아웃" [ref=e14] [cursor=pointer]
+    - generic [ref=e15]:
+      - button "📋 신청 관리" [ref=e16] [cursor=pointer]
+      - button "💬 문의 목록" [ref=e17] [cursor=pointer]
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - heading "📚 기수 관리" [level=2] [ref=e20]
+        - generic [ref=e21]:
+          - combobox [ref=e22]:
+            - option "7월 AI 정규반 (2026-07) · 마감" [selected]
+          - button "➕ 새 기수 만들기" [ref=e23] [cursor=pointer]
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - generic [ref=e26]: 마감됨
+            - button "🔓 모집 다시 열기" [ref=e27] [cursor=pointer]
+            - button "기수 삭제" [ref=e28] [cursor=pointer]
+          - generic [ref=e29]:
+            - generic [ref=e30]: 참가자 신청 링크
+            - generic [ref=e31]:
+              - textbox [ref=e32]: https://ai-regular-class-2026.web.app/2026-07
+              - button "📋 복사" [ref=e33] [cursor=pointer]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: "11"
+          - generic [ref=e37]: 총 신청자
+        - generic [ref=e38]:
+          - generic [ref=e39]: "9"
+          - generic [ref=e40]: 인터뷰 완료
+        - generic [ref=e41]:
+          - generic [ref=e42]: "9"
+          - generic [ref=e43]: 확정/진행
+        - generic [ref=e44]:
+          - generic [ref=e45]: "1"
+          - generic [ref=e46]: 취소
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - heading "AI 지식 수준 분포" [level=3] [ref=e49]
+          - application [ref=e52]:
+            - generic [ref=e68]:
+              - generic [ref=e71]: "2"
+              - generic [ref=e74]: "5"
+              - generic [ref=e77]: "3"
+              - generic [ref=e80]: "1"
+          - generic [ref=e81]:
+            - generic [ref=e82]: ● 2. 기초 (2)
+            - generic [ref=e83]: ● 3. 초급 (5)
+            - generic [ref=e84]: ● 4. 중급 (3)
+            - generic [ref=e85]: ● 5. 고급 (1)
+        - generic [ref=e86]:
+          - heading "날짜별 선택 인원" [level=3] [ref=e87]
+          - application [ref=e90]:
+            - generic [ref=e132]:
+              - generic [ref=e133]:
+                - generic [ref=e135]: 7/4
+                - generic [ref=e137]: 7/7
+                - generic [ref=e139]: 7/8
+                - generic [ref=e141]: 7/12
+                - generic [ref=e143]: 7/14
+                - generic [ref=e145]: 7/18
+                - generic [ref=e147]: 7/21
+                - generic [ref=e149]: 7/22
+                - generic [ref=e151]: 7/26
+                - generic [ref=e153]: 7/28
+              - generic [ref=e154]:
+                - generic [ref=e156]: "0"
+                - generic [ref=e158]: "2"
+                - generic [ref=e160]: "4"
+                - generic [ref=e162]: "6"
+                - generic [ref=e164]: "8"
+      - generic [ref=e165]:
+        - heading "진행 상태 분포" [level=3] [ref=e166]
+        - generic [ref=e167]:
+          - generic [ref=e168]: 신청 1
+          - generic [ref=e169]: 확정 9
+          - generic [ref=e170]: 취소 1
+      - generic [ref=e171]:
+        - heading "📅 7월 일정 달력" [level=2] [ref=e172]
+        - paragraph [ref=e173]:
+          - generic [ref=e174]: 📚 수업일
+          - generic [ref=e175]: 출근
+          - text: 💰 입금확인 · 날짜를 누르면 참여자가 아래에 표시됩니다.
+        - generic [ref=e176]:
+          - generic [ref=e177]: 일
+          - generic [ref=e178]: 월
+          - generic [ref=e179]: 화
+          - generic [ref=e180]: 수
+          - generic [ref=e181]: 목
+          - generic [ref=e182]: 금
+          - generic [ref=e183]: 토
+        - generic [ref=e184]:
+          - button "1" [disabled] [ref=e188]:
+            - generic [ref=e189]: "1"
+          - button "2" [disabled] [ref=e190]:
+            - generic [ref=e191]: "2"
+          - button "3" [disabled] [ref=e192]:
+            - generic [ref=e193]: "3"
+          - button "4 출근 12:30~17:00 📚 19:00~21:00 4/10 💰4" [ref=e194] [cursor=pointer]:
+            - generic [ref=e195]: "4"
+            - generic [ref=e196]: 출근 12:30~17:00
+            - generic [ref=e197]:
+              - text: 📚 19:00~21:00 4/10
+              - generic [ref=e198]: 💰4
+          - button "5" [disabled] [ref=e199]:
+            - generic [ref=e200]: "5"
+          - button "6" [disabled] [ref=e201]:
+            - generic [ref=e202]: "6"
+          - button "7 📚 11:00~13:00 4/10 💰3 출근 13:00~19:30" [ref=e203] [cursor=pointer]:
+            - generic [ref=e204]: "7"
+            - generic [ref=e205]:
+              - text: 📚 11:00~13:00 4/10
+              - generic [ref=e206]: 💰3
+            - generic [ref=e207]: 출근 13:00~19:30
+          - button "8 출근 13:00~19:30 📚 19:30~21:30 5/10 💰5" [ref=e208] [cursor=pointer]:
+            - generic [ref=e209]: "8"
+            - generic [ref=e210]: 출근 13:00~19:30
+            - generic [ref=e211]:
+              - text: 📚 19:30~21:30 5/10
+              - generic [ref=e212]: 💰5
+          - button "9 출근 13:00~19:30" [disabled] [ref=e213]:
+            - generic [ref=e214]: "9"
+            - generic [ref=e215]: 출근 13:00~19:30
+          - button "10" [disabled] [ref=e216]:
+            - generic [ref=e217]: "10"
+          - button "11" [disabled] [ref=e218]:
+            - generic [ref=e219]: "11"
+          - button "12 출근 12:30~17:00 📚 17:00~19:00 6/10 💰6" [ref=e220] [cursor=pointer]:
+            - generic [ref=e221]: "12"
+            - generic [ref=e222]: 출근 12:30~17:00
+            - generic [ref=e223]:
+              - text: 📚 17:00~19:00 6/10
+              - generic [ref=e224]: 💰6
+          - button "13 출근 13:00~19:30" [disabled] [ref=e225]:
+            - generic [ref=e226]: "13"
+            - generic [ref=e227]: 출근 13:00~19:30
+          - button "14 출근 13:00~19:30 📚 19:30~21:30 6/10 💰5" [ref=e228] [cursor=pointer]:
+            - generic [ref=e229]: "14"
+            - generic [ref=e230]: 출근 13:00~19:30
+            - generic [ref=e231]:
+              - text: 📚 19:30~21:30 6/10
+              - generic [ref=e232]: 💰5
+          - button "15" [disabled] [ref=e233]:
+            - generic [ref=e234]: "15"
+          - button "16" [disabled] [ref=e235]:
+            - generic [ref=e236]: "16"
+          - button "17" [disabled] [ref=e237]:
+            - generic [ref=e238]: "17"
+          - button "18 출근 12:30~17:00 📚 19:00~21:00 4/10 💰3" [ref=e239] [cursor=pointer]:
+            - generic [ref=e240]: "18"
+            - generic [ref=e241]: 출근 12:30~17:00
+            - generic [ref=e242]:
+              - text: 📚 19:00~21:00 4/10
+              - generic [ref=e243]: 💰3
+          - button "19" [disabled] [ref=e244]:
+            - generic [ref=e245]: "19"
+          - button "20" [disabled] [ref=e246]:
+            - generic [ref=e247]: "20"
+          - button "21 📚 11:00~13:00 5/10 💰4 출근 13:00~19:30" [ref=e248] [cursor=pointer]:
+            - generic [ref=e249]: "21"
+            - generic [ref=e250]:
+              - text: 📚 11:00~13:00 5/10
+              - generic [ref=e251]: 💰4
+            - generic [ref=e252]: 출근 13:00~19:30
+          - button "22 출근 13:00~19:30 📚 19:30~21:30 4/10 💰4" [ref=e253] [cursor=pointer]:
+            - generic [ref=e254]: "22"
+            - generic [ref=e255]: 출근 13:00~19:30
+            - generic [ref=e256]:
+              - text: 📚 19:30~21:30 4/10
+              - generic [ref=e257]: 💰4
+          - button "23 출근 13:00~19:30" [disabled] [ref=e258]:
+            - generic [ref=e259]: "23"
+            - generic [ref=e260]: 출근 13:00~19:30
+          - button "24" [disabled] [ref=e261]:
+            - generic [ref=e262]: "24"
+          - button "25" [disabled] [ref=e263]:
+            - generic [ref=e264]: "25"
+          - button "26 출근 12:30~17:00 📚 17:00~19:00 6/10 💰6" [ref=e265] [cursor=pointer]:
+            - generic [ref=e266]: "26"
+            - generic [ref=e267]: 출근 12:30~17:00
+            - generic [ref=e268]:
+              - text: 📚 17:00~19:00 6/10
+              - generic [ref=e269]: 💰6
+          - button "27 출근 13:00~19:30" [disabled] [ref=e270]:
+            - generic [ref=e271]: "27"
+            - generic [ref=e272]: 출근 13:00~19:30
+          - button "28 출근 13:00~19:30 📚 19:30~21:30 5/10 💰4" [ref=e273] [cursor=pointer]:
+            - generic [ref=e274]: "28"
+            - generic [ref=e275]: 출근 13:00~19:30
+            - generic [ref=e276]:
+              - text: 📚 19:30~21:30 5/10
+              - generic [ref=e277]: 💰4
+          - button "29" [disabled] [ref=e278]:
+            - generic [ref=e279]: "29"
+          - button "30" [disabled] [ref=e280]:
+            - generic [ref=e281]: "30"
+          - button "31" [disabled] [ref=e282]:
+            - generic [ref=e283]: "31"
+        - generic [ref=e284]:
+          - generic [ref=e285]:
+            - generic [ref=e286]: 7월 4일 (토) · 19:00 ~ 21:00
+            - generic [ref=e287]: 4/10명
+          - button "🔒 수동 마감" [ref=e289] [cursor=pointer]
+          - generic [ref=e290]:
+            - generic [ref=e291]:
+              - text: 💰 심지연/노리짱
+              - generic [ref=e293]: 입금완료
+            - generic [ref=e294]:
+              - text: 💰 최선/홀리써니
+              - generic [ref=e296]: 입금완료
+            - generic [ref=e297]:
+              - text: 💰 김성길/호시
+              - generic [ref=e299]: 입금완료
+            - generic [ref=e300]:
+              - text: 💰 원정빈
+              - generic [ref=e302]: 입금완료
+      - generic [ref=e303]:
+        - heading "📣 모집 글" [level=2] [ref=e304]
+        - paragraph [ref=e305]: 각 항목 복사 후 당근·카카오 등에 붙여넣기 하세요.
+        - generic [ref=e306]:
+          - generic [ref=e307]: 제목
+          - generic [ref=e308]: "[7월정규반] AI에이전트 배우기 모집"
+          - button "📋 복사" [ref=e309] [cursor=pointer]
+        - generic [ref=e310]:
+          - generic [ref=e311]: 본문
+          - generic [ref=e312]: "AI 에이전트 구축 및 활용하기 7월반을 모집합니다. 클로드를 기준으로 진행하며 다른 AI 사용을 원할경우 신청하실때 남겨주시면 됩니다. 📌 신청방식 아래 링크에서 가능한 날짜·시간을 모두 체크해 주세요. 👉 https://ai-regular-class-2026.web.app/2026-07 📌 진행방식 신청 후 간단한 인터뷰로 연락드립니다. 현재 수준 파악 → 시작점 상의 → 날짜 확정 순으로 진행됩니다. 친목 모임이 아닌 교육 모임인 점 참고 바랍니다. 수준에 맞게 방향을 제시하며, 따라 하거나 직접 해보면서 하나씩 익혀가는 방식입니다. 질문 응답 + 개별 숙제도 있습니다. 📌 참여 조건 - 최소 3회 이상 참여 가능하신 분 - 노트북 필수 - 클로드 유료계정 필수 - 장소: 신촌 부근 (개별 통보) 많은 관심 바랍니다 🙏"
+          - button "📋 복사" [ref=e313] [cursor=pointer]
+      - generic [ref=e314]:
+        - button "🏅 스탬프 미션 관리 (1개) · 🔒 잠금 ▲" [ref=e436] [cursor=pointer]
+        - generic [ref=e427]:
+          - generic [ref=e428]:
+            - generic [ref=e429]: 🔒 잠금 (학생에게 숨김)
+            - generic [ref=e430]: 관리자만 미리보기 가능
+            - button "공개하기" [ref=e431] [cursor=pointer]
+          - generic [ref=e437]:
+            - generic [ref=e438]:
+              - textbox "🏅" [ref=e439]
+              - textbox "미션 제목" [ref=e440]: 🧪테스트미션
+            - textbox "설명 (선택)" [ref=e441]: 동작 확인용 임시 미션
+            - generic [ref=e442]:
+              - button "↑" [ref=e443] [cursor=pointer]
+              - button "↓" [ref=e444] [cursor=pointer]
+              - button "숨김" [ref=e445] [cursor=pointer]
+          - generic [ref=e432]:
+            - button "+ 미션 추가" [ref=e433] [cursor=pointer]
+            - button "💾 저장" [ref=e434] [cursor=pointer]
+          - paragraph [ref=e435]: ※ 삭제 대신 '숨김'을 권장해요. 미션 id가 유지돼 기존 획득 기록이 보존됩니다.
+      - generic [ref=e317]:
+        - generic [ref=e318]: "상태 필터:"
+        - button "전체" [ref=e319] [cursor=pointer]
+        - button "신청 1" [ref=e320] [cursor=pointer]
+        - button "인터뷰완료 0" [ref=e321] [cursor=pointer]
+        - button "확정 9" [ref=e322] [cursor=pointer]
+        - button "진행중 0" [ref=e323] [cursor=pointer]
+        - button "완료 0" [ref=e324] [cursor=pointer]
+        - button "취소 1" [ref=e325] [cursor=pointer]
+      - button "심지연/노리짱 확정 입금 확인 완료 📞 010-8687-8982 · Lv 2 · 참여 5일" [ref=e327] [cursor=pointer]:
+        - generic [ref=e328]:
+          - generic [ref=e329]:
+            - generic [ref=e330]: 심지연/노리짱
+            - generic [ref=e331]: 확정
+            - generic [ref=e332]: 입금 확인 완료
+          - generic [ref=e333]: 📞 010-8687-8982 · Lv 2 · 참여 5일
+        - generic [ref=e334]: ⌄
+      - button "권호택 신청 미입금 📞 01038901812 · Lv 4 · 확정 5일" [ref=e336] [cursor=pointer]:
+        - generic [ref=e337]:
+          - generic [ref=e338]:
+            - generic [ref=e339]: 권호택
+            - generic [ref=e340]: 신청
+            - generic [ref=e341]: 미입금
+          - generic [ref=e342]: 📞 01038901812 · Lv 4 · 확정 5일
+        - generic [ref=e343]: ⌄
+      - button "김상국 확정 입금 확인 완료 📞 01091622447 · Lv 2 · 참여 5일" [ref=e345] [cursor=pointer]:
+        - generic [ref=e346]:
+          - generic [ref=e347]:
+            - generic [ref=e348]: 김상국
+            - generic [ref=e349]: 확정
+            - generic [ref=e350]: 입금 확인 완료
+          - generic [ref=e351]: 📞 01091622447 · Lv 2 · 참여 5일
+        - generic [ref=e352]: ⌄
+      - button "최선/홀리써니 확정 입금 확인 완료 📞 010-6352-2060 · Lv 3 · 참여 5일" [ref=e354] [cursor=pointer]:
+        - generic [ref=e355]:
+          - generic [ref=e356]:
+            - generic [ref=e357]: 최선/홀리써니
+            - generic [ref=e358]: 확정
+            - generic [ref=e359]: 입금 확인 완료
+          - generic [ref=e360]: 📞 010-6352-2060 · Lv 3 · 참여 5일
+        - generic [ref=e361]: ⌄
+      - button "이수민 확정 입금 확인 완료 📞 01075787393 · Lv 5 · 확정 4일" [ref=e363] [cursor=pointer]:
+        - generic [ref=e364]:
+          - generic [ref=e365]:
+            - generic [ref=e366]: 이수민
+            - generic [ref=e367]: 확정
+            - generic [ref=e368]: 입금 확인 완료
+          - generic [ref=e369]: 📞 01075787393 · Lv 5 · 확정 4일
+        - generic [ref=e370]: ⌄
+      - button "김성길/호시 확정 입금 확인 완료 📞 01090843334 · Lv 3 · 참여 5일" [ref=e372] [cursor=pointer]:
+        - generic [ref=e373]:
+          - generic [ref=e374]:
+            - generic [ref=e375]: 김성길/호시
+            - generic [ref=e376]: 확정
+            - generic [ref=e377]: 입금 확인 완료
+          - generic [ref=e378]: 📞 01090843334 · Lv 3 · 참여 5일
+        - generic [ref=e379]: ⌄
+      - button "홍영은 취소 미입금 📞 01035203942 · Lv 3 · 참여 5일" [ref=e381] [cursor=pointer]:
+        - generic [ref=e382]:
+          - generic [ref=e383]:
+            - generic [ref=e384]: 홍영은
+            - generic [ref=e385]: 취소
+            - generic [ref=e386]: 미입금
+          - generic [ref=e387]: 📞 01035203942 · Lv 3 · 참여 5일
+        - generic [ref=e388]: ⌄
+      - button "김지은 확정 입금 확인 완료 📞 01089337415 · Lv 4 · 참여 5일" [ref=e390] [cursor=pointer]:
+        - generic [ref=e391]:
+          - generic [ref=e392]:
+            - generic [ref=e393]: 김지은
+            - generic [ref=e394]: 확정
+            - generic [ref=e395]: 입금 확인 완료
+          - generic [ref=e396]: 📞 01089337415 · Lv 4 · 참여 5일
+        - generic [ref=e397]: ⌄
+      - button "원정빈 확정 입금 확인 완료 📞 01084558104 · Lv 3 · 참여 5일" [ref=e399] [cursor=pointer]:
+        - generic [ref=e400]:
+          - generic [ref=e401]:
+            - generic [ref=e402]: 원정빈
+            - generic [ref=e403]: 확정
+            - generic [ref=e404]: 입금 확인 완료
+          - generic [ref=e405]: 📞 01084558104 · Lv 3 · 참여 5일
+        - generic [ref=e406]: ⌄
+      - generic [ref=e407]:
+        - button "유주현/시엘 확정 입금 확인 완료 📞 01032996147 · Lv 3 · 참여 5일" [expanded] [active] [ref=e408] [cursor=pointer]:
+          - generic [ref=e409]:
+            - generic [ref=e410]:
+              - generic [ref=e411]: 유주현/시엘
+              - generic [ref=e412]: 확정
+              - generic [ref=e413]: 입금 확인 완료
+            - generic [ref=e414]: 📞 01032996147 · Lv 3 · 참여 5일
+          - generic [ref=e415]: ⌄
+        - generic [ref=e446]:
+          - generic [ref=e447]:
+            - generic [ref=e448]: AI를 배우려는 이유
+            - generic [ref=e449]: 좀더 잘 사용하고 싶습니다
+          - generic [ref=e450]:
+            - generic [ref=e451]: 사용 중인 AI 툴
+            - generic [ref=e452]: Chatgpt 클로드 제미나이 젠스파크
+          - generic [ref=e453]:
+            - generic [ref=e454]: 참여 가능 날짜 (5일)
+            - generic [ref=e455]:
+              - generic [ref=e456]: 7월 8일(수)
+              - generic [ref=e457]: 7월 12일(일)
+              - generic [ref=e458]: 7월 14일(화)
+              - generic [ref=e459]: 7월 26일(일)
+              - generic [ref=e460]: 7월 28일(화)
+          - generic [ref=e461]:
+            - generic [ref=e462]: 상태
+            - combobox [ref=e463]:
+              - option "신청"
+              - option "인터뷰완료"
+              - option "확정" [selected]
+              - option "진행중"
+              - option "완료"
+              - option "취소"
+            - button "삭제" [ref=e464] [cursor=pointer]
+          - generic [ref=e465]:
+            - generic [ref=e466]: 💳 입금
+            - generic [ref=e467]: 입금 확인 완료
+            - button "입금확인 취소" [ref=e468] [cursor=pointer]
+          - generic [ref=e469]:
+            - generic [ref=e470]: 📒 개별 진도 메모
+            - textbox "이 참가자의 수준 진단, 진행 내용, 다음 할 일 등을 기록하세요." [ref=e471]
+            - button "메모 저장" [ref=e472] [cursor=pointer]
+          - generic [ref=e473]:
+            - generic [ref=e474]: 💬 인터뷰 채팅
+            - generic [ref=e475]:
+              - textbox [ref=e476]: https://ai-regular-class-2026.web.app/chat/4be6c84cfb434454b20b
+              - button "링크 복사" [ref=e477] [cursor=pointer]
+              - link "관리자 입장 →" [ref=e478] [cursor=pointer]:
+                - /url: /chat/4be6c84cfb434454b20b?admin=1
+              - button "📱 문자 발송" [ref=e479] [cursor=pointer]
+              - button "💳 입금 안내" [ref=e480] [cursor=pointer]
+              - button "링크 재생성" [ref=e481] [cursor=pointer]
+              - button "대화 삭제" [ref=e482] [cursor=pointer]
+          - generic [ref=e483]:
+            - generic [ref=e484]: 🏅 스탬프 (0/1)
+            - button "🏅 🧪테스트미션" [ref=e486] [cursor=pointer]
+      - button "엄정호/시소팝 확정 입금 확인 완료 📞 010-9900-9677 · Lv 4 · 확정 5일" [ref=e417] [cursor=pointer]:
+        - generic [ref=e418]:
+          - generic [ref=e419]:
+            - generic [ref=e420]: 엄정호/시소팝
+            - generic [ref=e421]: 확정
+            - generic [ref=e422]: 입금 확인 완료
+          - generic [ref=e423]: 📞 010-9900-9677 · Lv 4 · 확정 5일
+        - generic [ref=e424]: ⌄
+  - generic [ref=e425]: "8"
