@@ -9,3 +9,5 @@ firebase-debug.log
 
 # OS
 .DS_Store
+daangn-auto/tools/ocr
+__pycache__/
