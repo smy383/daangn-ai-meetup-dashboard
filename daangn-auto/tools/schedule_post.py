@@ -19,6 +19,7 @@ import sys
 import time
 
 import dg
+import link
 import nav
 import picker
 
@@ -87,8 +88,27 @@ def submit(_):
         dg.tap_text("건너뛰기", items=items, wait=3)
     p, items = dg.read("posted")
     ok = bool(dg.find(items, st["title"])) and bool(dg.find(items, "모집중"))
-    print(json.dumps({"ok": ok, "posted_shot": p, "title": st["title"], "when": st["when"]},
-                     ensure_ascii=False))
+    url, link_err = None, None
+    if ok:                                   # 올린 직후 상세 화면 → 공유 링크를 따와 기록(사용자 지시 11/19)
+        try:
+            url = link.capture_from_event_page(st["title"])
+            link.record(st["title"], st["when"], url)
+        except Exception as e:  # noqa: BLE001 — 등록 자체는 성공이므로 링크 실패만 따로 알린다
+            link_err = f"{type(e).__name__}: {e}"
+    print(json.dumps({"ok": ok, "posted_shot": p, "title": st["title"], "when": st["when"],
+                      "url": url, "link_error": link_err}, ensure_ascii=False))
+
+
+def relink(a):
+    """이미 올린 일정의 링크를 다시 따와 기록: 일정 목록 → 제목 탭 → 공유 링크."""
+    items = nav.open_schedule_list(MOIM)
+    hits = dg.find(items, a.title)
+    if not hits:
+        raise dg.StepError(f"일정 목록에 '{a.title}'이 없어요")
+    dg.tap(hits[0]["x"], hits[0]["y"], wait=4)
+    url = link.capture_from_event_page(a.title)
+    row = link.record(a.title, a.when, url)
+    print(json.dumps({"ok": True, **row}, ensure_ascii=False))
 
 
 def cancel(_):
@@ -114,9 +134,12 @@ def main():
     pr.add_argument("--allow-dup", action="store_true")
     sub.add_parser("submit")
     sub.add_parser("cancel")
+    rl = sub.add_parser("link")
+    rl.add_argument("--title", required=True)
+    rl.add_argument("--when", required=True, help="예: 2026-12-03T19:00")
     a = ap.parse_args()
     try:
-        {"prepare": prepare, "submit": submit, "cancel": cancel}[a.cmd](a)
+        {"prepare": prepare, "submit": submit, "cancel": cancel, "link": relink}[a.cmd](a)
     except Exception as e:  # noqa: BLE001 — 어떤 오류든 멈추고 마지막 화면을 남긴다
         try:
             last = dg.shot("ERROR")

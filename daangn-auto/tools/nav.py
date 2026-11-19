@@ -39,7 +39,14 @@ def open_schedule_list(moim):
                 dg.tap_text("커뮤니티", exact=True, region=NAV, items=items, wait=3)
                 p, items = dg.read("community")
             if not dg.find(items, moim, region=(400, 760)):
-                dg.tap_text("모임", exact=True, region=(230, 420), items=items, wait=3)
+                tab = dg.find(items, "모임", exact=True, region=(230, 420))
+                if tab:
+                    dg.tap(tab[0]["x"], tab[0]["y"], wait=3)
+                else:                                  # OCR이 '동네생활 모임 카페…'를 한 덩어리로 읽는 경우
+                    row = dg.find(items, "동네생활", region=(230, 420))
+                    if not row or "모임" not in row[0]["t"]:
+                        raise dg.StepError(f"커뮤니티 상단 '모임' 탭을 못 찾음 → {p}")
+                    dg.tap(342, row[0]["y"], wait=3)   # '모임' 탭 고정 위치(동네생활 바로 오른쪽)
                 p, items = dg.read("moim_tab")
             dg.tap_text(moim, region=(400, 760), items=items, wait=4)
             continue

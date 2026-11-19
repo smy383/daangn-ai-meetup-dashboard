@@ -12,7 +12,13 @@ python3 schedule_post.py prepare --date 2026-12-03 --time 19:00 \
 # 2) 사람(사용자)이 스크린샷 보고 승인하면
 python3 schedule_post.py submit      # '일정 만들기' 한 번 → 캘린더 '건너뛰기' → 게시 확인
 # 취소: python3 schedule_post.py cancel
+# 이미 올린 일정 링크 다시 따오기: python3 schedule_post.py link --title "제목" --when 2026-12-03T19:00
 ```
+
+### 🔗 링크 기록 (사용자 지시 2026-11-19 — 일정을 만들면 반드시 링크 주소를 기록)
+- `submit` 이 등록 직후 **공유 > 링크 복사**로 초대 링크를 따와 `daangn-auto/meetups.jsonl` + `모임내역.md` 끝 '🔗 당근 일정 링크 기록'에 한 줄씩 남긴다(`tools/link.py`)
+- adb로 클립보드를 못 읽어서 모임 전체방 입력칸(네이티브)에 붙여넣어 읽고 바로 지운다 — 전송 버튼은 안 누름, 입력칸에 원래 글이 있으면 중단
+- 링크 실패해도 등록은 성공으로 두고 `link_error` 로 따로 알린다 → 그땐 `link` 명령으로 다시
 
 ### 동작
 - 지난 일정 **불러오기**로 장소·인원·설명·사진을 복사 → 날짜·시간(·제목·설명)만 바꾼다
